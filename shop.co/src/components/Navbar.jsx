@@ -41,28 +41,34 @@ export default function Navbar() {
         >
           <motion.nav
           className=" bg-white w-full mainPadding py-4 flex items-center nav:gap-12 gap-0 justify-between ">
-            <Link className="text-2xl xsm:text-4xl font-bold bolded" to=''>SHOP.CO</Link>
+            <motion.span initial={{opacity:0,y:100}} animate={{opacity:1,y:0}}>
+              <Link className="text-2xl xsm:text-4xl font-bold bolded" to=''>SHOP.CO</Link>
+            </motion.span>
             <div className="hidden nav:block mt-3">
               <ul className="flex gap-5">
-                <li><Link className="Links" to='/shop'>Shop</Link></li>
-                <li><Link className="Links" to='/onsale'>On Sale</Link></li>
-                <li><Link className="Links" to='/newarrivals'>New Arrivals</Link></li>
-                <li><Link className="Links" to='/topselling'>Top Selling</Link></li>
+              <motion.li initial={{opacity:0,y:100}} animate={{opacity:1,y:0}}><Link className="Links" to='/Shop'>Shop</Link></motion.li>
+            <motion.li initial={{opacity:0,y:100}} animate={{opacity:1,y:0}}><Link className="Links" to='/OnSale'>On Sale</Link></motion.li>
+            <motion.li initial={{opacity:0,y:100}} animate={{opacity:1,y:0}}><Link className="Links" to='/NewArrival'>New Arrivals</Link></motion.li>
+            <motion.li initial={{opacity:0,y:100}} animate={{opacity:1,y:0}}><Link className="Links" to='/TopSelling'>Top Selling</Link></motion.li>
               </ul>
             </div>
             
             <div className='lg:flex-grow'>
-              <form className="hidden nav:flex mt-3 gap-2" onSubmit={handleFormSubmit}>
+              <motion.form
+                 initial={{opacity:0,y:100}} animate={{opacity:1,y:0}}
+              className="bg-gray-100 p-1 px-3 rounded-full hidden nav:flex mt-3 gap-2" onSubmit={handleFormSubmit}>
                 <button type="submit">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                   <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                 </svg>
                 </button>
                 <input ref={search} className="p-1 outline-none w-full bg-transparent" type="text" placeholder="Search for products..." />
-              </form>
+              </motion.form>
             </div>
 
-            <div className="flex gap-3 xsm:mt-3">
+            <motion.div
+               initial={{opacity:0,y:100}} animate={{opacity:1,y:0}}
+            className="flex gap-3 xsm:mt-3">
               <div>
                 <Link to='cart'>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -75,7 +81,7 @@ export default function Navbar() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
               </div>
-            </div>
+            </motion.div>
           </motion.nav>
     </motion.div>
   )

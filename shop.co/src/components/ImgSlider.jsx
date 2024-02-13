@@ -15,6 +15,12 @@ const imgDetails = [
   {src: './6.png', type:'topselling', name: 'Courage Graphic T-shirt', stars: 4, cost: 145, discount: 0},
   {src: './7.png', type:'topselling', name: 'Loose Fit Bermuda Shorts', stars: 4.5, cost: 240, discount: 20},
   {src: './8.png', type:'topselling', name: 'Faded Skinny Jeans', stars: 4.5, cost: 210, discount: 0},
+
+  
+  {src: './2.png', type:'onsale', name: 'Skinny Fit Jeans', stars: 3.5, cost: 240, discount: 20},
+  {src: './5.png', type:'onsale', name: 'Vertical Striped Shirt', stars: 5, cost: 212, discount: 20},
+  {src: './4.png', type:'onsale', name: 'Sleeve Striped T-shirt', stars: 4.5, cost: 130, discount: 30},
+  {src: './7.png', type:'onsale', name: 'Loose Fit Bermuda Shorts', stars: 4.5, cost: 240, discount: 20},
 ]
 
 export default function ImgSlider({type}) {
@@ -63,10 +69,12 @@ export default function ImgSlider({type}) {
                   initial='hidden'
                   animate={MainControls}
                   className="flex flex-col w-[250px] h-full" key={index}>
-                    <motion.img
-                    whileHover={{scale:1.2,rotate:index&1?10:-10}}
-                    onClick={handleClick(el.name)}
-                    className="w-full h-[250px]" draggable="false" src={el.src} alt={el.src} />
+                    <div className="bg-gray-100 rounded-xl">
+                      <motion.img
+                      whileHover={{scale:1.2,rotate:index&1?10:-10}}
+                      onClick={handleClick(el.name)}
+                      className="w-full h-[250px]" draggable="false" src={el.src} alt={el.src} />
+                    </div>
                     <RateCost name={el.name} stars={el.stars} cost={el.cost} discount={el.discount}/>
                 </motion.div>
               )

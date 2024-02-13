@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       screens:{
-        nav:'1095px',
+        nav:'1110px',
         xsm:'400px',
       },
       height: {

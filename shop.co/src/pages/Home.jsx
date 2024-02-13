@@ -1,19 +1,53 @@
+import { useEffect, useRef } from 'react'
+
 import {Link} from 'react-router-dom'
 import Reavel from '../Reavel'
 import {motion} from 'framer-motion'
 import BrandsBar from '../components/BrandsBar'
 import HomeSliders from '../components/HomeSliders'
 import HappyCustomers from '../components/HappyCustomers'
-export default function Home() {
+export default function Home({to = ''}) {
+  const NewArrival = useRef()
+  const TopSelling = useRef()
+  const OnSale = useRef()
+
+
+  useEffect(()=>{
+    if(to === ''){
+      window.scrollTo({
+        top:0,
+        behavior:'smooth'
+      })
+      return;
+    }
+    if(to === 'NewArrival'){
+      window.scrollTo({
+        top:NewArrival.current.offsetTop,
+        behavior:'smooth'
+      })
+    }else if(to === 'TopSelling'){
+      window.scrollTo({
+        top:TopSelling.current.offsetTop,
+        behavior:'smooth'
+      })
+    }else if(to === 'OnSale'){
+      window.scrollTo({
+        top:OnSale.current.offsetTop,
+        behavior:'smooth'
+      })
+    }
+
+  },[to])
+
   return (
     <>
-      <div className="pt-1 flex justify-between items-center min-h-100vh flex-wrap mainPadding">
+      <div className="bg-gray-100 pt-1 flex justify-between items-center min-h-100vh flex-wrap mainPadding">
         <div className="w-1/2 flex flex-col flex-grow">
-          <Reavel>
+          
             <h1 className="bolded text-3xl sm:text-6xl mb-10 max-w-[550px]">
-              FIND CLOTHES THAT MATCHES YOUR STYLE
+            <Reavel>FIND CLOTHES</Reavel> <Reavel>THAT MATCHES</Reavel> <Reavel>YOUR STYLE</Reavel>
             </h1>
-          </Reavel>
+          
           <Reavel>
             <p className="max-w-[550px]">
             Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.
@@ -64,8 +98,15 @@ export default function Home() {
         </div>
       </div>
       <BrandsBar />
-      <HomeSliders text='NEW ARRIVALS' type='newarrival' />
-      <HomeSliders text='TOP SELLING' type='topselling' />
+      <div ref={NewArrival}>
+        <HomeSliders text='NEW ARRIVALS' type='newarrival' />
+      </div>
+      <div ref={TopSelling}>
+        <HomeSliders text='TOP SELLING' type='topselling' />
+      </div>
+      <div ref={OnSale}>
+        <HomeSliders text='ON SALE' type='onsale' />
+      </div>
       <HappyCustomers />
     </>
   )
