@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { SideNavContext } from '../store/SideNavContext'
-
+import Page404 from './Page404'
 
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -15,15 +15,12 @@ export default function Error() {
       <TopHeader/>
       <Navbar/>
       <motion.div
-        initial={{backgroundColor:'rgba(0, 0, 0, 0)'}}
-        animate={{backgroundColor:sideNavHidden?'rgba(0, 0, 0, 0)':'rgba(0, 0, 0, 0.5)'}}
         className='overflow-hidden'
         onClick={()=>{
           if(!sideNavHidden)setSideNavHidden(true)
         }}
       >
-        <h1 className='text-6xl'>Error</h1>
-        <p className='text-2xl'>This page is not found</p>
+        <Page404/>
       
       <Footer/>
     </motion.div>

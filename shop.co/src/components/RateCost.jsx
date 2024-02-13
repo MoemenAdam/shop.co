@@ -2,12 +2,13 @@ import Reavel from "../Reavel"
 import { FaStar } from "react-icons/fa";
 import { FaStarHalfAlt } from "react-icons/fa";
 
-export default function RateCost({name,stars,cost,discount=0}) {
+export default function RateCost({from='Home',name,stars=5,cost,discount=0}) {
   return (
     <div>
       <Reavel>
-        <h1 className='font-bold text-xl'>{name}</h1>
+        <h1 className={`font-bold text-xl ${from!='Home'?'bolded text-4xl max-w-[600px] sm:text-5xl':''}`}>{name}</h1>
       </Reavel>
+      <div className={`${from!='Home'?'mt-3':''}`}></div>
       <Reavel>
         <div className="flex items-center gap-2">
             <div className="flex">
@@ -31,8 +32,9 @@ export default function RateCost({name,stars,cost,discount=0}) {
             <span className="text-gray-500">5</span>
         </div>
       </Reavel>
+      <div className={`${from!='Home'?'mt-3':''}`}></div>
       <Reavel>
-        <div className="flex gap-1">
+        <div className={`flex gap-1 ${from!='Home'?'text-2xl gap-3':''}`}>
             <span className='font-bold'>${cost}</span>
           {
             discount>0 && <>

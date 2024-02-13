@@ -25,11 +25,7 @@
 
 @font-face {
   font-family: bolded;
-  src: url(Fonts/Fontspring-DEMO-integralcf-bold.otf);
-}
-@font-face {
-  font-family: regular;
-  src: url(Fonts/Fontspring-DEMO-integralcf-regular.otf);
+  src: url(../Fonts/Fontspring-DEMO-integralcf-bold.otf) format('opentype');
 }
 .bolded{
   font-family: bolded;

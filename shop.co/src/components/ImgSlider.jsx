@@ -2,26 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
 import RateCost from "./RateCost";
 import { useNavigate } from "react-router-dom";
-
-const imgDetails = [
-  {src: './1.png', type:'newarrival', name: 'T-shirt with Tape Details', stars: 4.5, cost: 120, discount: 0},
-  {src: './2.png', type:'newarrival', name: 'Skinny Fit Jeans', stars: 3.5, cost: 240, discount: 20},
-  {src: './3.png', type:'newarrival', name: 'Checkered Shirt', stars: 4.5, cost: 180, discount: 0},
-  {src: './4.png', type:'newarrival', name: 'Sleeve Striped T-shirt', stars: 4.5, cost: 130, discount: 30},
-  {src: './5.png', type:'newarrival', name: 'Vertical Striped Shirt', stars: 5, cost: 212, discount: 20},
-
-  {src: './5.png', type:'topselling', name: 'Vertical Striped Shirt', stars: 5, cost: 212, discount: 20},
-  {src: './3.png', type:'topselling', name: 'Checkered Shirt', stars: 4.5, cost: 180, discount: 0},
-  {src: './6.png', type:'topselling', name: 'Courage Graphic T-shirt', stars: 4, cost: 145, discount: 0},
-  {src: './7.png', type:'topselling', name: 'Loose Fit Bermuda Shorts', stars: 4.5, cost: 240, discount: 20},
-  {src: './8.png', type:'topselling', name: 'Faded Skinny Jeans', stars: 4.5, cost: 210, discount: 0},
-
-  
-  {src: './2.png', type:'onsale', name: 'Skinny Fit Jeans', stars: 3.5, cost: 240, discount: 20},
-  {src: './5.png', type:'onsale', name: 'Vertical Striped Shirt', stars: 5, cost: 212, discount: 20},
-  {src: './4.png', type:'onsale', name: 'Sleeve Striped T-shirt', stars: 4.5, cost: 130, discount: 30},
-  {src: './7.png', type:'onsale', name: 'Loose Fit Bermuda Shorts', stars: 4.5, cost: 240, discount: 20},
-]
+import { Products } from "../store/Constants";
 
 export default function ImgSlider({type}) {
   const [Width, setWidth] = useState(0)
@@ -32,20 +13,20 @@ export default function ImgSlider({type}) {
   const inView = useInView(mainDiv, {once:true})
   const MainControls = useAnimation()
 
-  const imgDetailsByType = imgDetails.filter(el => el.type === type)
+  const ProductsByType = Products.filter(el => el.type === type)
 
   useEffect(()=>{
     if(inView){
       MainControls.start('visible')
     }
-  },[inView])
+  },[inView,MainControls])
   useEffect(()=>{
     setWidth(ref.current.scrollWidth - ref.current.offsetWidth)
   },[])
 
   const handleClick = (name) => {
     return () => {
-      navigate(`/product/${name}`)
+      navigate(`/Shop/${name}`)
     }
   }
 
@@ -58,7 +39,7 @@ export default function ImgSlider({type}) {
         ref={mainDiv}
       className="flex gap-5 cursor-pointer w-fit">
         {
-          imgDetailsByType.map((el,index) => {
+          ProductsByType.map((el,index) => {
               return (
                 <motion.div 
                   variants={{

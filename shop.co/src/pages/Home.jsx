@@ -41,7 +41,7 @@ export default function Home({to = ''}) {
 
   return (
     <>
-      <div className="bg-gray-100 pt-1 flex justify-between items-center min-h-100vh flex-wrap mainPadding">
+      <div className="bg-gray-100 pt-1 flex justify-between items-center flex-wrap mainPadding">
         <div className="w-1/2 flex flex-col flex-grow">
           
             <h1 className="bolded text-3xl sm:text-6xl mb-10 max-w-[550px]">
@@ -55,7 +55,7 @@ export default function Home({to = ''}) {
           </Reavel>
           <div className='mt-10'></div>
           <Reavel className='btnReavel flex' btn='w-full lg:w-fit'>
-            <Link className="btn w-full lg:w-fit text-center" to='shop'>Shop Now</Link>
+            <Link className="btn w-full lg:w-fit text-center" to='Shop'>Shop Now</Link>
           </Reavel>
           <div className='mb-10'></div>
           <div className="flex flex-wrap justify-start items-center gap-10">

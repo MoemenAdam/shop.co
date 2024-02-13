@@ -13,6 +13,9 @@ export default {
       height: {
         '100vh': '100vh',
       },
+      minHeight: {
+        '100vh': '100vh',
+      }
     },
   },
   plugins: [],

@@ -9,8 +9,7 @@ export default function SideNav() {
   const search = useRef();
   const handleFormSubmit = (e)=>{
     e.preventDefault();
-    console.log(search.current.value);
-    navigate(`product/${search.current.value}`);
+    navigate(`Shop/${search.current.value}`);
   }
 
   const toggleSideNav = ()=>{
