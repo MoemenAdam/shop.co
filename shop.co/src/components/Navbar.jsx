@@ -22,7 +22,7 @@ export default function Navbar() {
   const handleFormSubmit = (e)=>{
     e.preventDefault();
     console.log(search.current.value);
-    navigate(`shop/${search.current.value}`);
+    navigate(`product/${search.current.value}`);
   }
 
   const toggleSideNav = ()=>{
@@ -37,10 +37,10 @@ export default function Navbar() {
         }}
         animate={hidden?'hidden':'visible'}
         transition={{type:'just'}}
-        className='sticky top-0 bg-white shadow-md z-50'
+        className='sticky top-0 bg-white shadow-md z-50 pb-4'
         >
           <motion.nav
-          className=" bg-white w-full mainPadding py-4 flex items-center nav:gap-12 gap-0 justify-between">
+          className=" bg-white w-full mainPadding py-4 flex items-center nav:gap-12 gap-0 justify-between ">
             <Link className="text-2xl xsm:text-4xl font-bold bolded" to=''>SHOP.CO</Link>
             <div className="hidden nav:block mt-3">
               <ul className="flex gap-5">
