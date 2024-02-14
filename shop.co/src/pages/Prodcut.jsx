@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Products } from '../store/Constants'
 import Page404 from './Page404'
 import RateCost from '../components/RateCost'
 import {motion} from "framer-motion"
 import AddToCart from '../store/AddToCart'
+import { CartCtx } from '../store/CartContext'
 
 export default function Prodcut() {
   const [MyProdcut, setMyProdcut] = useState({})
+  const {setCart} = useContext(CartCtx)
   const [Color, setColor] = useState('')
-  const [Size, setSize] = useState('')
+  const [Size, setSize] = useState('Any')
   const [Quantity, setQuantity] = useState(1)
   const { name } = useParams()
   
@@ -23,8 +25,8 @@ export default function Prodcut() {
 
   const handleSubmit = ()=>{
     const color = Color===1?'Yellow':Color===2?'Red':Color===3?'Green':Color===4?'Blue':'Any'
-    const size = Size??'Any'
-    AddToCart({...MyProdcut,color,size,Quantity})
+    const size = Size;
+    AddToCart({...MyProdcut,color,size,Quantity},setCart)
   }
 
   const Veri = ()=>{

@@ -1,4 +1,4 @@
-export default function AddToCart (arr){
+export default function AddToCart (arr,setCart ){
   // get the cart from local storage
   let cart = localStorage.getItem('cart')
   // if the cart is empty
@@ -20,6 +20,7 @@ export default function AddToCart (arr){
   else{
     // add the product to the cart
     cart.push(arr)
+    setCart(prev=>prev+1);
   }
   // save the cart to local storage
   localStorage.setItem('cart', JSON.stringify(cart))

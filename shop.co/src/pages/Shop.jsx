@@ -2,6 +2,7 @@
 import { Products } from '../store/Constants'
 
 export default function Shop() {
+  window.scrollTo(0,0)
   return (
     <div>
       {
