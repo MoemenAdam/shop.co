@@ -6,7 +6,7 @@ export default function RateCost({from='Home',name,stars=5,cost,discount=0}) {
   return (
     <div>
       <Reavel>
-        <h1 className={`font-bold text-xl ${from!='Home'?'bolded text-4xl max-w-[600px] sm:text-5xl':''}`}>{name}</h1>
+        <h1 className={`font-bold ${from!='Home'?'bolded text-4xl max-w-[600px] sm:text-5xl':'text-xl'}`}>{name}</h1>
       </Reavel>
       <div className={`${from!='Home'?'mt-3':''}`}></div>
       <Reavel>

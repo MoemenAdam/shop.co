@@ -1,33 +1,26 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { SideNavContext } from '../store/SideNavContext'
-
+import { useContext, useState } from 'react'
+import SideNavContext from '../store/SideNavContext'
+import CartContext from '../store/CartContext'
 import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
-import { Outlet } from 'react-router-dom'
 import TopHeader from '../components/TopHeader'
 import SideNav from '../components/SideNav'
+import LayoutHolder from '../components/LayoutHolder'
+
+import { SideNavCtx } from '../store/SideNavContext'
 
 export default function Root() {
-  const [sideNavHidden, setSideNavHidden] = useState(true);
   return (
     <div>
-      <SideNavContext.Provider value={{sideNavHidden, setSideNavHidden}}>
-        <TopHeader/>
-        <Navbar/>
-        
-        <motion.div
-          className='overflow-hidden'
-          onClick={()=>{
-            if(!sideNavHidden)setSideNavHidden(true)
-          }}
-        >
-          <Outlet/>
-          
-          <Footer/>
-        </motion.div>
-        <SideNav/>
-      </SideNavContext.Provider>
+      <SideNavContext>
+        <CartContext>
+          <TopHeader/>
+          <Navbar/>
+
+          <LayoutHolder type='Outlet'/>
+
+          <SideNav/>
+        </CartContext>
+      </SideNavContext>
     </div>
   )
 }

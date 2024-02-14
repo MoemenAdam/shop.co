@@ -3,6 +3,7 @@ import Home from "./pages/Home"
 import Error from "./pages/Error"
 import Root from "./pages/Root"
 import Shop from "./pages/Shop"
+import Cart from "./pages/Cart"
 import Prodcut from "./pages/Prodcut"
 
 const router = createBrowserRouter([
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
     children: [
       {path: "", element: <Home/>},
       {path: "Shop", element: <Shop/>},
+      {path: "Cart", element: <Cart/>},
       {path: "Shop/:name", element: <Prodcut/>},
       {path: "NewArrival", element: <Home to='NewArrival'/>},
       {path: "TopSelling", element: <Home to='TopSelling'/>},

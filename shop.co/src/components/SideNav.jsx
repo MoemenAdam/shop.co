@@ -1,10 +1,10 @@
 import { useContext, useRef} from 'react'
 import { motion } from "framer-motion"
 import { Link, useNavigate } from "react-router-dom"
-import { SideNavContext } from '../store/SideNavContext'
+import { SideNavCtx } from '../store/SideNavContext'
 
 export default function SideNav() {
-  const {sideNavHidden, setSideNavHidden} = useContext(SideNavContext);
+  const {sideNavHidden, setSideNavHidden} = useContext(SideNavCtx);
   const navigate = useNavigate();
   const search = useRef();
   const handleFormSubmit = (e)=>{

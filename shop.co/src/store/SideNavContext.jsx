@@ -1,8 +1,18 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
-export const SideNavContext = createContext(
+
+export const SideNavCtx = createContext(
   {
     sideNavHidden: true,
     setSideNavHidden: ()=>{}
   }
 );
+
+export default function SideNavContext({children}) {
+  const [sideNavHidden, setSideNavHidden] = useState(true);
+  return (
+    <SideNavCtx.Provider value={{sideNavHidden, setSideNavHidden}}>
+      {children}
+    </SideNavCtx.Provider>
+  )
+}
