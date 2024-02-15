@@ -21,6 +21,9 @@ export default {
       flexGrow: {
         'huge': 99999,
       },
+      zIndex: {
+        'huge': 9999,
+      },
     },
   },
   plugins: [],

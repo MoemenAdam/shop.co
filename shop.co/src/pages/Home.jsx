@@ -58,7 +58,7 @@ export default function Home({to = ''}) {
             <Link className="btn w-full lg:w-fit text-center" to='Shop'>Shop Now</Link>
           </Reavel>
           <div className='mb-10'></div>
-          <div className="flex flex-wrap justify-start items-center gap-10">
+          <div className="flex mb-10 flex-wrap justify-start items-center gap-10">
             <div className="flex-grow flex flex-col justify-center items-center">
               <Reavel>
                 <h1 className="font-bold text-3xl tracking-wide">200+</h1>

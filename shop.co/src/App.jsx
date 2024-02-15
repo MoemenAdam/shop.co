@@ -1,3 +1,4 @@
+import { useRef } from "react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from "./pages/Home"
 import Error from "./pages/Error"
@@ -5,7 +6,7 @@ import Root from "./pages/Root"
 import Shop from "./pages/Shop"
 import Cart from "./pages/Cart"
 import Prodcut from "./pages/Prodcut"
-import CursorFollower from "./CursorFollower"
+import { motion } from "framer-motion"
 
 const router = createBrowserRouter([
   {
@@ -25,12 +26,25 @@ const router = createBrowserRouter([
 ]);
 
 
+
 function App() {
+  const MyCursor = useRef()
+  const handleMouseMove = (e) => {
+    const x = e.clientX;
+    const y = e.clientY;
+    if(MyCursor){
+      MyCursor.current.animate({
+        left: `${x-4}px`,
+        top: `${y-4}px`
+      },{duration:700 , fill:'forwards', easing:'ease-in-out'})
+    }
+  
+  }
   return (
-    <>
-      <CursorFollower/>
+    <div onMouseMove={handleMouseMove}>
+      <div ref={MyCursor} className='w-2 h-2 bg-black rounded-full z-huge pointer-events-none fixed MyCursor' />
       <RouterProvider router={router}/>
-    </>
+    </div>
   )
 }
 
