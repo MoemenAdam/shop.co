@@ -10,7 +10,7 @@ export const Products = [
   {src: '../6.png', type:'topselling', name: 'Courage Graphic T-shirt', stars: 4, cost: 145, discount: 0},
   {src: '../7.png', type:'topselling', name: 'Loose Fit Bermuda Shorts', stars: 4.5, cost: 240, discount: 20},
   {src: '../15.png', type:'topselling', name: 'Relaxed Fit Twill Utility Shorts', stars: 5, cost: 260, discount: 10},
-  
+
   {src: '../8.png', type:'topselling', name: 'Faded Skinny Jeans', stars: 4.5, cost: 210, discount: 0},
 
   
@@ -21,6 +21,7 @@ export const Products = [
   {src: '../14.png', type:'onsale', name: 'Black Striped T-shirt', stars: 5, cost: 120, discount: 30},
   {src: '../4.png', type:'onsale', name: 'Sleeve Striped T-shirt', stars: 4.5, cost: 130, discount: 30},
   {src: '../7.png', type:'onsale', name: 'Loose Fit Bermuda Shorts', stars: 4.5, cost: 240, discount: 20},
+  {src: '../15.png', type:'onsale', name: 'Relaxed Fit Twill Utility Shorts', stars: 5, cost: 260, discount: 10},
 
   
 

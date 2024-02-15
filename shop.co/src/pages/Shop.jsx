@@ -10,6 +10,7 @@ export default function Shop() {
   },[])
   return (
     <div>
+      <h1 className='text-center text-4xl font-bold my-10'>Still working on it (you see every thing here is broken)</h1>
       <ShowProductsByType Products={Products} />
     </div>
   )
