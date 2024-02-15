@@ -9,6 +9,8 @@ export const Products = [
   {src: '../3.png', type:'topselling', name: 'Checkered Shirt', stars: 4.5, cost: 180, discount: 0},
   {src: '../6.png', type:'topselling', name: 'Courage Graphic T-shirt', stars: 4, cost: 145, discount: 0},
   {src: '../7.png', type:'topselling', name: 'Loose Fit Bermuda Shorts', stars: 4.5, cost: 240, discount: 20},
+  {src: '../15.png', type:'topselling', name: 'Relaxed Fit Twill Utility Shorts', stars: 5, cost: 260, discount: 10},
+  
   {src: '../8.png', type:'topselling', name: 'Faded Skinny Jeans', stars: 4.5, cost: 210, discount: 0},
 
   
@@ -23,24 +25,27 @@ export const Products = [
   
 
   
-  {src: '../1.png',id:'1', type:'T-shirt', name: 'T-shirt with Tape Details', stars: 4.5, cost: 120, discount: 0},
-  {src: '../4.png',id:'2', type:'T-shirt', name: 'Sleeve Striped T-shirt', stars: 4.5, cost: 130, discount: 30},
-  {src: '../6.png',id:'3', type:'T-shirt', name: 'Courage Graphic T-shirt', stars: 4, cost: 145, discount: 0},
+  {src: '../1.png',id:'1', place:'shop', style:'Casual' , style2:'Party', type:'T-shirt', name: 'T-shirt with Tape Details', stars: 4.5, cost: 120, discount: 0},
+  {src: '../4.png',id:'2', place:'shop', style:'Casual' , style2:'Party', type:'T-shirt', name: 'Sleeve Striped T-shirt', stars: 4.5, cost: 130, discount: 30},
+  {src: '../6.png',id:'3', place:'shop', style:'Casual' , style2:'Party', type:'T-shirt', name: 'Courage Graphic T-shirt', stars: 4, cost: 145, discount: 0},
   
-  {src: '../9.png',id:'4', type:'T-shirt', name: 'One Life Graphic T-shirt', stars: 4.5, cost: 260, discount: 40},
-  {src: '../11.png',id:'5', type:'T-shirt', name: 'Polo with Contrast Trims', stars: 4, cost: 212, discount: 20},
-  {src: '../12.png',id:'6', type:'T-shirt', name: 'Gradient Graphic T-shirt', stars: 3.5, cost: 145, discount: 0},
-  {src: '../13.png',id:'7', type:'T-shirt', name: 'Polo with Tipping Details', stars: 4.5, cost: 180, discount: 0},
-  {src: '../14.png',id:'8', type:'T-shirt', name: 'Black Striped T-shirt', stars: 5, cost: 120, discount: 30},
+  {src: '../9.png',id:'4', place:'shop', style:'Casual' , style2:'Party', type:'T-shirt', name: 'One Life Graphic T-shirt', stars: 4.5, cost: 260, discount: 40},
+  {src: '../11.png',id:'5', place:'shop', style:'Casual' , style2:'', type:'T-shirt', name: 'Polo with Contrast Trims', stars: 4, cost: 212, discount: 20},
+  {src: '../12.png',id:'6', place:'shop', style:'Casual' , style2:'', type:'T-shirt', name: 'Gradient Graphic T-shirt', stars: 3.5, cost: 145, discount: 0},
+  {src: '../13.png',id:'7', place:'shop', style:'Casual' , style2:'', type:'T-shirt', name: 'Polo with Tipping Details', stars: 4.5, cost: 180, discount: 0},
+  {src: '../14.png',id:'8', place:'shop', style:'Casual' , style2:'', type:'T-shirt', name: 'Black Striped T-shirt', stars: 5, cost: 120, discount: 30},
 
 
-  {src: '../3.png',id:'9', type:'Shirt', name: 'Checkered Shirt', stars: 4.5, cost: 180, discount: 0},
-  {src: '../5.png',id:'10', type:'Shirt', name: 'Vertical Striped Shirt', stars: 5, cost: 212, discount: 20},
+  {src: '../3.png',id:'9', place:'shop', style:'Formal' , style2:'Party', type:'Shirts', name: 'Checkered Shirt', stars: 4.5, cost: 180, discount: 0},
+  {src: '../5.png',id:'10', place:'shop', style:'Formal' , style2:'', type:'Shirts', name: 'Vertical Striped Shirt', stars: 5, cost: 212, discount: 20},
 
   
-  {src: '../2.png',id:'11', type:'Jeans', name: 'Skinny Fit Jeans', stars: 3.5, cost: 240, discount: 20},
-  {src: '../7.png',id:'12', type:'Jeans', name: 'Loose Fit Bermuda Shorts', stars: 4.5, cost: 240, discount: 20},
-  {src: '../8.png',id:'13', type:'Jeans', name: 'Faded Skinny Jeans', stars: 4.5, cost: 210, discount: 0},
+  {src: '../2.png',id:'11', place:'shop', style:'Formal' , style2:'Casual', type:'Jeans', name: 'Skinny Fit Jeans', stars: 3.5, cost: 240, discount: 20},
+  {src: '../8.png',id:'13', place:'shop', style:'Formal' , style2:'', type:'Jeans', name: 'Faded Skinny Jeans', stars: 4.5, cost: 210, discount: 0},
+
+
+  {src: '../7.png',id:'12', place:'shop', style:'Party' , style2:'', type:'Shorts', name: 'Loose Fit Bermuda Shorts', stars: 4.5, cost: 240, discount: 20},
+  {src: '../15.png',id:'13', place:'shop', style:'Party' , style2:'', type:'Shorts', name: 'Relaxed Fit Twill Utility Shorts', stars: 5, cost: 260, discount: 10},
 ]
 
 

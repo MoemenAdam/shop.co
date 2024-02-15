@@ -4,7 +4,7 @@ import RateCost from "./RateCost";
 import { useNavigate } from "react-router-dom";
 import { Products } from "../store/Constants";
 
-export default function ImgSlider({type}) {
+export default function ImgSlider({type,del='no',id}) {
   const [Width, setWidth] = useState(0)
   const navigate = useNavigate()
   const ref = useRef()
@@ -13,7 +13,7 @@ export default function ImgSlider({type}) {
   const inView = useInView(mainDiv, {once:true})
   const MainControls = useAnimation()
 
-  const ProductsByType = Products.filter(el => el.type === type)
+  const ProductsByType = Products.filter(el => el.type === type && (del==='no'?1:el.id!==id))
 
   useEffect(()=>{
     if(inView){
