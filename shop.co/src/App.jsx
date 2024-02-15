@@ -42,7 +42,7 @@ function App() {
   }
   return (
     <div onMouseMove={handleMouseMove}>
-      <div ref={MyCursor} className='w-2 h-2 bg-black rounded-full z-huge pointer-events-none fixed MyCursor' />
+      <div ref={MyCursor} className='xsm:block hidden w-2 h-2 bg-black rounded-full z-huge pointer-events-none fixed MyCursor' />
       <RouterProvider router={router}/>
     </div>
   )
