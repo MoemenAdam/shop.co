@@ -5,6 +5,7 @@ import Root from "./pages/Root"
 import Shop from "./pages/Shop"
 import Cart from "./pages/Cart"
 import Prodcut from "./pages/Prodcut"
+import CursorFollower from "./CursorFollower"
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,10 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <RouterProvider router={router}/>
+    <>
+      <CursorFollower/>
+      <RouterProvider router={router}/>
+    </>
   )
 }
 

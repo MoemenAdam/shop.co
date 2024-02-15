@@ -9,13 +9,18 @@ export default {
       screens:{
         nav:'1110px',
         xsm:'400px',
+        cart:'440px',
+        cart2:'569px',
       },
       height: {
         '100vh': '100vh',
       },
       minHeight: {
         '100vh': '100vh',
-      }
+      },
+      flexGrow: {
+        'huge': 99999,
+      },
     },
   },
   plugins: [],

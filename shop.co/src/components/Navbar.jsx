@@ -49,9 +49,9 @@ export default function Navbar() {
             <div className="hidden nav:block mt-3">
               <ul className="flex gap-5">
               <motion.li initial={{opacity:0,y:100}} animate={{opacity:1,y:0}}><Link className="Links" to='/Shop'>Shop</Link></motion.li>
-            <motion.li initial={{opacity:0,y:100}} animate={{opacity:1,y:0}}><Link className="Links" to='/OnSale'>On Sale</Link></motion.li>
             <motion.li initial={{opacity:0,y:100}} animate={{opacity:1,y:0}}><Link className="Links" to='/NewArrival'>New Arrivals</Link></motion.li>
             <motion.li initial={{opacity:0,y:100}} animate={{opacity:1,y:0}}><Link className="Links" to='/TopSelling'>Top Selling</Link></motion.li>
+            <motion.li initial={{opacity:0,y:100}} animate={{opacity:1,y:0}}><Link className="Links" to='/OnSale'>On Sale</Link></motion.li>
               </ul>
             </div>
             

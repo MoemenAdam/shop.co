@@ -39,7 +39,7 @@ export default function RateCost({from='Home',name,stars=5,cost,discount=0}) {
           {
             discount>0 && <>
               <div className="flex">
-                  <del className='brightness-75'>${cost + cost*discount/100}</del>
+                  <del className='text-gray-400'>${cost + cost*discount/100}</del>
                   <span className='bg-red-100 px-3 ml-3 rounded-full text-red-400'>-{discount}%</span>
               </div>
             </>

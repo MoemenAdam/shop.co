@@ -41,7 +41,7 @@ export default function Home({to = ''}) {
 
   return (
     <>
-      <div className="bg-gray-100 pt-1 flex justify-between items-center flex-wrap mainPadding">
+      <div className=" pt-1 flex justify-between items-end flex-wrap mainPadding">
         <div className="w-1/2 flex flex-col flex-grow">
           
             <h1 className="bolded text-3xl sm:text-6xl mb-10 max-w-[550px]">
@@ -85,7 +85,7 @@ export default function Home({to = ''}) {
             </div>
           </div>
         </div>
-        <div className="flex flex-grow relative">
+        <div className="flex justify-end flex-grow relative">
             <motion.img
             initial={{opacity:0, y:75}}
             animate={{opacity:1, y:0}} transition={{type:'just'}} className="w-32 absolute right-0 hidden xsm:block z-10" src="./Vector.png" alt="" />

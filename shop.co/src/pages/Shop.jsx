@@ -1,8 +1,14 @@
 
+import { useEffect } from 'react'
 import { Products } from '../store/Constants'
 
 export default function Shop() {
-  window.scrollTo(0,0)
+  useEffect(()=>{
+    const timer = setTimeout(() => {
+      window.scrollTo(0,0)
+    }, 100);
+    return () => clearTimeout(timer)
+  },[])
   return (
     <div>
       {
