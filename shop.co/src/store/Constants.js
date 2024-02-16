@@ -26,15 +26,15 @@ export const Products = [
   
 
   
-  {src: '../1.png',id:'1', place:'shop', style:'Casual' , style2:'Party', type:'T-shirt', type2:'All', name: 'T-shirt with Tape Details', stars: 4.5, cost: 120, discount: 0},
-  {src: '../4.png',id:'2', place:'shop', style:'Casual' , style2:'Party', type:'T-shirt', type2:'All', name: 'Sleeve Striped T-shirt', stars: 4.5, cost: 130, discount: 30},
-  {src: '../6.png',id:'3', place:'shop', style:'Casual' , style2:'Party', type:'T-shirt', type2:'All', name: 'Courage Graphic T-shirt', stars: 4, cost: 145, discount: 0},
+  {src: '../1.png',id:'1', place:'shop', style:'Casual' , style2:'Party', type:'T-shirts', type2:'All', name: 'T-shirt with Tape Details', stars: 4.5, cost: 120, discount: 0},
+  {src: '../4.png',id:'2', place:'shop', style:'Casual' , style2:'Party', type:'T-shirts', type2:'All', name: 'Sleeve Striped T-shirt', stars: 4.5, cost: 130, discount: 30},
+  {src: '../6.png',id:'3', place:'shop', style:'Casual' , style2:'Party', type:'T-shirts', type2:'All', name: 'Courage Graphic T-shirt', stars: 4, cost: 145, discount: 0},
   
-  {src: '../9.png',id:'4', place:'shop', style:'Casual' , style2:'Party', type:'T-shirt', type2:'All', name: 'One Life Graphic T-shirt', stars: 4.5, cost: 260, discount: 40},
-  {src: '../11.png',id:'5', place:'shop', style:'Casual' , style2:'', type:'T-shirt', type2:'All', name: 'Polo with Contrast Trims', stars: 4, cost: 212, discount: 20},
-  {src: '../12.png',id:'6', place:'shop', style:'Casual' , style2:'', type:'T-shirt', type2:'All', name: 'Gradient Graphic T-shirt', stars: 3.5, cost: 145, discount: 0},
-  {src: '../13.png',id:'7', place:'shop', style:'Casual' , style2:'', type:'T-shirt', type2:'All', name: 'Polo with Tipping Details', stars: 4.5, cost: 180, discount: 0},
-  {src: '../14.png',id:'8', place:'shop', style:'Casual' , style2:'', type:'T-shirt', type2:'All', name: 'Black Striped T-shirt', stars: 5, cost: 120, discount: 30},
+  {src: '../9.png',id:'4', place:'shop', style:'Casual' , style2:'Party', type:'T-shirts', type2:'All', name: 'One Life Graphic T-shirt', stars: 4.5, cost: 260, discount: 40},
+  {src: '../11.png',id:'5', place:'shop', style:'Casual' , style2:'', type:'T-shirts', type2:'All', name: 'Polo with Contrast Trims', stars: 4, cost: 212, discount: 20},
+  {src: '../12.png',id:'6', place:'shop', style:'Casual' , style2:'', type:'T-shirts', type2:'All', name: 'Gradient Graphic T-shirt', stars: 3.5, cost: 145, discount: 0},
+  {src: '../13.png',id:'7', place:'shop', style:'Casual' , style2:'', type:'T-shirts', type2:'All', name: 'Polo with Tipping Details', stars: 4.5, cost: 180, discount: 0},
+  {src: '../14.png',id:'8', place:'shop', style:'Casual' , style2:'', type:'T-shirts', type2:'All', name: 'Black Striped T-shirt', stars: 5, cost: 120, discount: 30},
 
 
   {src: '../3.png',id:'9', place:'shop', style:'Formal' , style2:'Party', type:'Shirts', type2:'All', name: 'Checkered Shirt', stars: 4.5, cost: 180, discount: 0},

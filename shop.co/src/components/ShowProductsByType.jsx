@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useState, useReducer } from 'react'
+import React, { useEffect, useState, useReducer } from 'react'
 import { motion } from 'framer-motion'
-import { useNavigate, useParams, Link, useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import RateCost from './RateCost'
-import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardArrowUp } from "react-icons/md";
-import { Products } from '../store/Constants'
 import ReactSlider from 'react-slider'
 
 
@@ -43,7 +41,7 @@ const updateFilters = (state, action) => {
   }
 }
 
-const updateCheckBox = (state, action) => {
+const updateStyleCheckBox = (state, action) => {
   switch (action.type) {
     case 'cb1':
       return {cb1:!state.cb1,cb2:false,cb3:false,cb4:false}
@@ -57,12 +55,26 @@ const updateCheckBox = (state, action) => {
       return state
   }
 }
+const updateTypeCheckBox = (state, action) => {
+  switch (action.type) {
+    case 'cb2':
+      return {cb1:false,cb2:!state.cb2,cb3:false,cb4:false,cb5:false}
+    case 'cb3':
+      return {cb1:false,cb2:false,cb3:!state.cb3,cb4:false,cb5:false}
+    case 'cb4':
+      return {cb1:false,cb2:false,cb3:false,cb4:!state.cb4,cb5:false}
+    case 'cb5':
+      return {cb1:false,cb2:false,cb3:false,cb4:false,cb5:!state.cb5}
+    default:
+      return state
+  }
+}
 
 
 const filterClothes = (clothes, typeFilter, minPrice, maxPrice, styleFilter) => {
   return clothes.filter(item => {
     // Filter by type
-    if (typeFilter && typeFilter !== 'All' && item.type !== typeFilter && item.type2 !== typeFilter) {
+    if (typeFilter  && item.type !== typeFilter) {
       return false;
     }
 
@@ -75,7 +87,7 @@ const filterClothes = (clothes, typeFilter, minPrice, maxPrice, styleFilter) => 
     }
 
     // Filter by style
-    if (styleFilter && styleFilter !== 'All' && item.style !== styleFilter && item.style2 !== styleFilter) {
+    if (styleFilter && item.style !== styleFilter && item.style2 !== styleFilter) {
       return false;
     }
 
@@ -95,14 +107,20 @@ export default function ShowProductsByType({MyProducts,setMyProducts}) {
     style:true,
     filter:true
   }
-  const initCheckBox = {
+  const initStyleCheckBox = {
     cb1:queryParams.get('style')=='Casual'||false,
     cb2:queryParams.get('style')=='Formal'||false,
     cb3:queryParams.get('style')=='Party'||false,
     cb4:queryParams.get('style')=='Gym'||false,
   }
+  const initTypeCheckBox = {
+    cb2:queryParams.get('type')=='T-shirts'||false,
+    cb3:queryParams.get('type')=='Shirts'||false,
+    cb4:queryParams.get('type')=='Jeans'||false,
+    cb5:queryParams.get('type')=='Shorts'||false,
+  }
   const initFillters = {
-    type:queryParams.get('type') || 'all',
+    type:queryParams.get('type') || '',
     price:[parseInt(queryParams.get('min'))||0,parseInt(queryParams.get('max'))||500],
     colorsbg:queryParams.get('colorbg') || 0,
     style:queryParams.get('style') || ''
@@ -110,21 +128,35 @@ export default function ShowProductsByType({MyProducts,setMyProducts}) {
 
   const [Arrows , setArrows] = useReducer(updateArrows,initFilltersArrows)
   const [Filters , setFilters] = useReducer(updateFilters,initFillters)
-  const [CheckBox, setCheckBox] = useReducer(updateCheckBox,initCheckBox)
+  const [StyleCheckBox, setStyleCheckBox] = useReducer(updateStyleCheckBox,initStyleCheckBox)
+  const [TypeCheckBox, setTypeCheckBox] = useReducer(updateTypeCheckBox,initTypeCheckBox)
   const [PriceRange, setPriceRange] = useState([Filters.price[0],Filters.price[1]])
-  console.log(queryParams.get('colorbg'));
+  const [Products, setProducts] = useState(MyProducts)
   
   useEffect(()=>{
     const holder = filterClothes(MyProducts, Filters.type, Filters.price[0], Filters.price[1], Filters.style);
-    console.log(holder);
-    setMyProducts(holder);
-      
+    setProducts(holder);
   },[Filters])
 
   useEffect(()=>{
-    const value = CheckBox.cb1?'Casual':CheckBox.cb2?'Formal':CheckBox.cb3?'Party':CheckBox.cb4?'Gym':'';
+    if(!StyleCheckBox.cb1 && !StyleCheckBox.cb2 && !StyleCheckBox.cb3 && !StyleCheckBox.cb4){
+      queryParams.delete('style');
+      navigate(`?${queryParams.toString()}`);
+      setFilters({type:'style',value:''})
+    }
+    const value = StyleCheckBox.cb1?'Casual':StyleCheckBox.cb2?'Formal':StyleCheckBox.cb3?'Party':StyleCheckBox.cb4?'Gym':'';
     if(value)handleFiltersChange('style',value);
-  },[CheckBox])
+  },[StyleCheckBox])
+
+  useEffect(()=>{
+    if(!TypeCheckBox.cb2 && !TypeCheckBox.cb3 && !TypeCheckBox.cb4 && !TypeCheckBox.cb5){
+      queryParams.delete('type');
+      navigate(`?${queryParams.toString()}`);
+      setFilters({type:'type',value:''})
+    }
+    const value = TypeCheckBox.cb2?'T-shirts':TypeCheckBox.cb3?'Shirts':TypeCheckBox.cb4?'Jeans':TypeCheckBox.cb5?'Shorts':'';
+    if(value)handleFiltersChange('type',value);
+  },[TypeCheckBox])
 
   const updateQueryParams = (newParams) => {
     const mergedParams = new URLSearchParams({
@@ -192,25 +224,21 @@ export default function ShowProductsByType({MyProducts,setMyProducts}) {
             </div>
             {
               Arrows.type&&<div className='flex flex-col justify-between gap-5'>
-              <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0}} onClick={()=>handleFiltersChange('type','All')} className='flex justify-between cursor-pointer'>
-                <p>All</p>
-                <MdKeyboardArrowRight />
-              </motion.div>
-              <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.05}} onClick={()=>handleFiltersChange('type','T-shirt')} className='flex justify-between cursor-pointer'>
+              <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.05}} className='flex justify-between cursor-pointer'>
                 <p>T-shirts</p>
-                <MdKeyboardArrowRight />
+                <input type="checkbox" checked={TypeCheckBox.cb2} onChange={()=>setTypeCheckBox({type:'cb2'})} />
               </motion.div>
-              <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.06}} onClick={()=>handleFiltersChange('type','Shirts')} className='flex justify-between cursor-pointer'>
+              <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.06}} className='flex justify-between cursor-pointer'>
                 <p>Shirts</p>
-                <MdKeyboardArrowRight />
+                <input type="checkbox" checked={TypeCheckBox.cb3} onChange={()=>setTypeCheckBox({type:'cb3'})} />
               </motion.div>
-              <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.07}} onClick={()=>handleFiltersChange('type','Jeans')} className='flex justify-between cursor-pointer'>
+              <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.07}} className='flex justify-between cursor-pointer'>
                 <p>Jeans</p>
-                <MdKeyboardArrowRight />
+                <input type="checkbox" checked={TypeCheckBox.cb4} onChange={()=>setTypeCheckBox({type:'cb4'})} />
               </motion.div>
-              <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.08}} onClick={()=>handleFiltersChange('type','Shorts')} className='flex justify-between cursor-pointer'>
+              <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.08}} className='flex justify-between cursor-pointer'>
                 <p>Shorts</p>
-                <MdKeyboardArrowRight />
+                <input type="checkbox" checked={TypeCheckBox.cb5} onChange={()=>setTypeCheckBox({type:'cb5'})} />
               </motion.div></div>
             }
           </div>
@@ -322,19 +350,19 @@ export default function ShowProductsByType({MyProducts,setMyProducts}) {
                   Arrows.style&&<div className='flex flex-col gap-5'>
                     <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.05}} className='flex justify-between cursor-pointer'>
                       <div>Casual</div>
-                      <input type="checkbox" checked={CheckBox.cb1} onChange={()=>setCheckBox({type:'cb1'})} />
+                      <input type="checkbox" checked={StyleCheckBox.cb1} onChange={()=>setStyleCheckBox({type:'cb1'})} />
                     </motion.div>
                     <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.06}}  className='flex justify-between cursor-pointer'>
                       <div>Formal</div>
-                      <input type="checkbox" checked={CheckBox.cb2} onChange={()=>setCheckBox({type:'cb2'})} />
+                      <input type="checkbox" checked={StyleCheckBox.cb2} onChange={()=>setStyleCheckBox({type:'cb2'})} />
                     </motion.div>
                     <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.07}}  className='flex justify-between cursor-pointer'>
                       <div>Party</div>
-                      <input type="checkbox" checked={CheckBox.cb3} onChange={()=>setCheckBox({type:'cb3'})} />
+                      <input type="checkbox" checked={StyleCheckBox.cb3} onChange={()=>setStyleCheckBox({type:'cb3'})} />
                     </motion.div>
                     <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.08}} className='flex justify-between cursor-pointer'>
                       <div>Gym</div>
-                      <input type="checkbox" checked={CheckBox.cb4} onChange={()=>setCheckBox({type:'cb4'})} />
+                      <input type="checkbox" checked={StyleCheckBox.cb4} onChange={()=>setStyleCheckBox({type:'cb4'})} />
                     </motion.div>
                   </div>
                 }</div>
@@ -343,10 +371,10 @@ export default function ShowProductsByType({MyProducts,setMyProducts}) {
         }
       </div>
       <div className='flex flex-col justify-center flex-grow flex-wrap gap-3 h-fit'>
-        <h1 className='ml-10 mt-5 text-3xl font-bold'>{Filters.type}</h1>
+        <h1 className='ml-10 mt-5 text-3xl font-bold'>{Filters.type?Filters.type:'All'} {Filters.style?'->':''} {Filters.style}  </h1>
           <div className='flex justify-center flex-grow flex-wrap gap-3 h-fit'>
             {
-              MyProducts.length?MyProducts.map((el,index) => {
+              Products.length?Products.map((el,index) => {
                 return(
                   <motion.div key={index} whileTap={{ scale:0.95 }}>
                     <motion.div 
@@ -368,7 +396,7 @@ export default function ShowProductsByType({MyProducts,setMyProducts}) {
                     </motion.div>
                   </motion.div>
                 )
-              }):<h1 className='text-3xl font-bold'>No Products</h1>
+              }):<h1 className='text-3xl mt-10 font-bold'>Sorry nothing here...</h1>
             }
           </div>
           

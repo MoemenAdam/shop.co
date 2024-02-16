@@ -6,6 +6,7 @@ import Reavel from "../Reavel"
 import { MdOutlineDiscount } from "react-icons/md";
 import { motion, AnimatePresence  } from "framer-motion";
 import AddToCart from "../store/AddToCart"
+import { IoIosArrowForward } from "react-icons/io";
 
 
 export default function Cart() {
@@ -80,6 +81,12 @@ export default function Cart() {
   } 
   return (
     <div className="mainMargin">
+      
+      <div className='flex my-5 items-center gap-4'>
+        <Link to='/' className='text-gray-400'>Home</Link>
+        <IoIosArrowForward color='gray'/>
+        <p className=''>Cart</p>
+      </div>
       <h1 className="bolded text-3xl xsm:text-4xl">Your Cart</h1>
       <div className="mt-10 flex flex-wrap gap-5">
         <motion.div key={Cart.length} className="flex flex-grow-huge h-fit flex-col rounded-xl border-2 p-5">

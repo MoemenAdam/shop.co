@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams,Link } from 'react-router-dom'
 import { Products } from '../store/Constants'
 import Page404 from './Page404'
 import RateCost from '../components/RateCost'
@@ -7,6 +7,7 @@ import {motion} from "framer-motion"
 import AddToCart from '../store/AddToCart'
 import { CartCtx } from '../store/CartContext'
 import HomeSliders from '../components/HomeSliders'
+import { IoIosArrowForward } from "react-icons/io";
 
 export default function Prodcut() {
   const [MyProdcut, setMyProdcut] = useState({})
@@ -26,7 +27,7 @@ export default function Prodcut() {
   },[name])
 
   const handleSubmit = ()=>{
-    const color = Color===1?'Yellow':Color===2?'Red':Color===3?'Green':Color===4?'Blue':'Any'
+    const color = Color===1?'Yellow':Color===2?'Red':Color===3?'Green':Color===4?'Blue':Color===5?'Light Yellow':Color===6?'Light Red':Color===7?'Light Green':Color===8?'Light Blue':'Any'
     const size = Size;
     AddToCart({...MyProdcut,color,size,Quantity},setCart,setCost)
   }
@@ -71,6 +72,14 @@ export default function Prodcut() {
 
   return (
     <>
+      
+      <div className='flex my-5 mainMargin items-center gap-4'>
+        <Link to='/' className='text-gray-400'>Home</Link>
+        <IoIosArrowForward color='gray'/>
+        <Link to='/Shop' className='text-gray-400'>Shop</Link>
+        <IoIosArrowForward color='gray'/>
+        <p className=''>{MyProdcut.name}</p>
+      </div>
       <div className='flex flex-wrap justify-center gap-x-10 mainMargin h-fit'>
         <div className='bg-gray-100 flex-grow rounded-xl flex justify-center items-center '>
           <img className='w-[80%]' src={MyProdcut.src} alt='' />

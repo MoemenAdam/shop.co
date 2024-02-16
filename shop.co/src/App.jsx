@@ -15,13 +15,7 @@ const router = createBrowserRouter([
     errorElement:<Error/>,
     children: [
       {path: "", element: <Home/>},
-      { 
-        path: "Shop",
-        element: <Shop/>,
-        children:[
-          {path: ":type", element: <Shop/>},
-        ]
-      },
+      {path: "Shop", element: <Shop/>},
       {path: "Cart", element: <Cart/>},
       {path: "Shop/:name", element: <Prodcut/>},
       {path: "NewArrival", element: <Home to='NewArrival'/>},
@@ -48,8 +42,7 @@ function App() {
   }
   return (
     <div onMouseMove={handleMouseMove}>
-      {/* dont forget add to xsm:block down here */}
-      <div ref={MyCursor} className='hidden w-2 h-2 bg-black rounded-full z-huge pointer-events-none fixed MyCursor' />
+      <div ref={MyCursor} className='hidden w-2 xsm:block h-2 bg-black rounded-full z-huge pointer-events-none fixed MyCursor' />
       <RouterProvider router={router}/>
     </div>
   )

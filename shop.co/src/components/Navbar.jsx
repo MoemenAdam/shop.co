@@ -24,7 +24,7 @@ export default function Navbar() {
 
   const handleFormSubmit = (e)=>{
     e.preventDefault();
-    navigate(`Shop/${search.current.value}`);
+    navigate(`/Shop/${search.current.value}`);
   }
 
   const toggleSideNav = ()=>{
