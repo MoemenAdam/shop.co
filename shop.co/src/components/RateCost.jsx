@@ -4,10 +4,13 @@ import { FaStarHalfAlt } from "react-icons/fa";
 
 export default function RateCost({from='Home',name,stars=5,cost,discount=0}) {
   return (
-    <div>
+    <div className={`${from==='Home'?'flex flex-col justify-between h-full':''}`}>
+      <div>
       <Reavel>
         <h1 className={`font-bold ${from!='Home'?'bolded text-4xl max-w-[600px] sm:text-5xl':'text-xl'}`}>{name}</h1>
       </Reavel>
+      </div>
+      <div>
       <div className={`${from!='Home'?'mt-3':''}`}></div>
       <Reavel>
         <div className="flex items-center gap-2">
@@ -47,6 +50,7 @@ export default function RateCost({from='Home',name,stars=5,cost,discount=0}) {
 
         </div>
       </Reavel>
+      </div>
     </div>
   )
 }

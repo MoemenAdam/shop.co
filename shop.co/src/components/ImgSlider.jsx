@@ -46,22 +46,24 @@ export default function ImgSlider({type,del='no',id}) {
         {
           ProductsByType.map((el,index) => {
               return (
-                <motion.div 
-                  variants={{
-                    visible:{opacity:1, x:0},
-                    hidden:{opacity:0, x:-75}
-                  }}
-                  transition={{delay:index*0.1,type:'just'}}
-                  initial='hidden'
-                  animate={MainControls}
-                  className="flex flex-col w-[250px] h-full" key={index}>
-                    <div className="bg-gray-100 rounded-xl">
-                      <motion.img
-                      whileHover={{scale:1.2,rotate:index&1?10:-10}}
-                      onClick={handleClick(el.name)}
-                      className="w-full h-[250px]" draggable="false" src={el.src} alt={el.src} />
-                    </div>
-                    <RateCost name={el.name} stars={el.stars} cost={el.cost} discount={el.discount}/>
+                <motion.div key={index} whileTap={{ scale: 0.95 }}>
+                  <motion.div 
+                    variants={{
+                      visible:{opacity:1, x:0},
+                      hidden:{opacity:0, x:-75}
+                    }}
+                    transition={{delay:index*0.1,type:'just'}}
+                    initial='hidden'
+                    animate={MainControls}
+                    className="flex flex-col w-[250px] h-full">
+                      <div className="bg-gray-100 rounded-xl select-none">
+                        <motion.img
+                        whileHover={{scale:1.2,rotate:index&1?10:-10}}
+                        onClick={handleClick(el.name)}
+                        className="w-full h-[250px]" draggable="false" src={el.src} alt={el.src} />
+                      </div>
+                      <RateCost name={el.name} stars={el.stars} cost={el.cost} discount={el.discount}/>
+                  </motion.div>
                 </motion.div>
               )
           })

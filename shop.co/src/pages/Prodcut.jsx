@@ -82,7 +82,7 @@ export default function Prodcut() {
             <hr />
             <div className='absolute -translate-y-4 right-10 bg-white'>Select Colors</div>
 
-            <div className='flex gap-3 items-end h-24'>
+            <div className='flex flex-wrap gap-3 items-end h-24'>
               <motion.div 
                 initial={{opacity:0,x:-75}}
                 animate={{opacity:1,x:0}}
@@ -103,6 +103,26 @@ export default function Prodcut() {
                 animate={{opacity:1,x:0}}
                 transition={{delay:0.3}}
               onClick={handleColorChanges(4)} className='bg-blue-900 w-8 h-8 rounded-full cursor-pointer'>{Color===4 && <Veri/>}</motion.div>
+              <motion.div 
+                initial={{opacity:0,x:-75}}
+                animate={{opacity:1,x:0}}
+                transition={{delay:0.4}}
+              onClick={handleColorChanges(5)} className='bg-yellow-500 w-8 h-8 rounded-full cursor-pointer'>{Color===5 && <Veri/>}</motion.div>
+              <motion.div 
+                initial={{opacity:0,x:-75}}
+                animate={{opacity:1,x:0}}
+                transition={{delay:0.5}}
+              onClick={handleColorChanges(6)} className='bg-red-500 w-8 h-8 rounded-full cursor-pointer'>{Color===6 && <Veri/>}</motion.div>
+              <motion.div 
+                initial={{opacity:0,x:-75}}
+                animate={{opacity:1,x:0}}
+                transition={{delay:0.6}}
+              onClick={handleColorChanges(7)} className='bg-green-500 w-8 h-8 rounded-full cursor-pointer'>{Color===7 && <Veri/>}</motion.div>
+              <motion.div 
+                initial={{opacity:0,x:-75}}
+                animate={{opacity:1,x:0}}
+                transition={{delay:0.7}}
+              onClick={handleColorChanges(8)} className='bg-blue-500 w-8 h-8 rounded-full cursor-pointer'>{Color===8 && <Veri/>}</motion.div>
             </div>
             
 

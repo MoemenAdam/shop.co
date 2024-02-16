@@ -26,7 +26,9 @@ export default function HappyCustomers() {
           {
             reviews.map((el,index) => {
                 return (
-                  <div key={index} className='flex flex-col gap-2 w-[350px]'>
+                  <motion.div
+                    whileTap={{ scale: 0.95 }}
+                    key={index} className='flex flex-col gap-2 w-[350px]'>
                     <Reavel>
                       <div className='flex gap-2'>
                         <FaStar/><FaStar/><FaStar/><FaStar/><FaStar/>
@@ -41,7 +43,7 @@ export default function HappyCustomers() {
                     <Reavel>
                       <p className='w-full h-full'>{el.review}</p>
                     </Reavel>
-                  </div>
+                  </motion.div>
                 )
             })
           }

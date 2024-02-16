@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState, useReducer } from 'react'
 import { motion } from 'framer-motion'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams, Link, useLocation } from 'react-router-dom'
 import RateCost from './RateCost'
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { MdKeyboardArrowUp } from "react-icons/md";
@@ -10,153 +10,368 @@ import ReactSlider from 'react-slider'
 
 
 
+const updateArrows = (state, action) => {
+  switch (action.type) {
+    case 'type':
+      return {...state,type:!state.type}
+    case 'price':
+      return {...state,price:!state.price}
+    case 'colors':
+      return {...state,colors:!state.colors}
+    case 'style':
+      return {...state,style:!state.style}
+    case 'filter':
+      return {...state,filter:!state.filter}
+    default:
+      return state
+  }
+}
+const updateFilters = (state, action) => {
+  switch (action.type) {
+    case 'type':
+      return {...state,type:action.value}
+    case 'price':
+      return {...state,price:action.value}
+    case 'colors':
+      return {...state,colors:action.value}
+    case 'colorbg':
+        return {...state,colorsbg:action.value}
+    case 'style':
+      return {...state,style:action.value}
+    default:
+      return state
+  }
+}
+
+const updateCheckBox = (state, action) => {
+  switch (action.type) {
+    case 'cb1':
+      return {cb1:!state.cb1,cb2:false,cb3:false,cb4:false}
+    case 'cb2':
+      return {cb1:false,cb2:!state.cb2,cb3:false,cb4:false}
+    case 'cb3':
+      return {cb1:false,cb2:false,cb3:!state.cb3,cb4:false}
+    case 'cb4':
+      return {cb1:false,cb2:false,cb3:false,cb4:!state.cb4}
+    default:
+      return state
+  }
+}
+
+
+const filterClothes = (clothes, typeFilter, minPrice, maxPrice, styleFilter) => {
+  return clothes.filter(item => {
+    // Filter by type
+    if (typeFilter && typeFilter !== 'All' && item.type !== typeFilter && item.type2 !== typeFilter) {
+      return false;
+    }
+
+    // Filter by price range
+    if (minPrice && item.cost < minPrice) {
+      return false;
+    }
+    if (maxPrice && item.cost > maxPrice) {
+      return false;
+    }
+
+    // Filter by style
+    if (styleFilter && styleFilter !== 'All' && item.style !== styleFilter && item.style2 !== styleFilter) {
+      return false;
+    }
+
+    return true;
+  });
+};
+
 export default function ShowProductsByType({MyProducts,setMyProducts}) {
-  const [Type,setType] = useState(true);
-  const [Price,setPrice] = useState(true);
-  const [Colors,setColors] = useState(true);
-  const [Style,setStyle] = useState(true);
-  const [Filters,setFilters] = useState(true);
-  const [value, setValue] = useState([0, 1000]);
   const navigate = useNavigate()
+  const queryParams = new URLSearchParams(location.search);
+
+  const initFilltersArrows = {
+    type:true,
+    price:true,
+    colors:true,
+    colorsbg:true,
+    style:true,
+    filter:true
+  }
+  const initCheckBox = {
+    cb1:queryParams.get('style')=='Casual'||false,
+    cb2:queryParams.get('style')=='Formal'||false,
+    cb3:queryParams.get('style')=='Party'||false,
+    cb4:queryParams.get('style')=='Gym'||false,
+  }
+  const initFillters = {
+    type:queryParams.get('type') || 'all',
+    price:[parseInt(queryParams.get('min'))||0,parseInt(queryParams.get('max'))||500],
+    colorsbg:queryParams.get('colorbg') || 0,
+    style:queryParams.get('style') || ''
+  }
+
+  const [Arrows , setArrows] = useReducer(updateArrows,initFilltersArrows)
+  const [Filters , setFilters] = useReducer(updateFilters,initFillters)
+  const [CheckBox, setCheckBox] = useReducer(updateCheckBox,initCheckBox)
+  const [PriceRange, setPriceRange] = useState([Filters.price[0],Filters.price[1]])
+  console.log(queryParams.get('colorbg'));
   
+  useEffect(()=>{
+    const holder = filterClothes(MyProducts, Filters.type, Filters.price[0], Filters.price[1], Filters.style);
+    console.log(holder);
+    setMyProducts(holder);
+      
+  },[Filters])
+
+  useEffect(()=>{
+    const value = CheckBox.cb1?'Casual':CheckBox.cb2?'Formal':CheckBox.cb3?'Party':CheckBox.cb4?'Gym':'';
+    if(value)handleFiltersChange('style',value);
+  },[CheckBox])
+
+  const updateQueryParams = (newParams) => {
+    const mergedParams = new URLSearchParams({
+      ...Object.fromEntries(queryParams), // Convert existing query parameters to object
+      ...newParams // Merge new parameters
+    });
+    navigate(`/Shop?${mergedParams.toString()}`);
+  };
+
+  const handleFiltersChange = (type,value)=>{
+    switch (type) {
+      case 'type':
+        updateQueryParams({ type: value });
+        break;
+      case 'price':
+        updateQueryParams({ min: value[0], max: value[1] });
+        break;
+      case 'colorbg':
+        updateQueryParams({ colorbg: value });
+        break;
+      case 'style':
+        updateQueryParams({ style: value });
+        break;
+      default:
+        break;
+    }
+
+    setFilters({type,value})
+  }
+
   const handleClick = (name) => {
     return () => {
       navigate(`/Shop/${name}`)
     }
   }
 
-  const setProd = (type) => {
-    const holder = Products.filter( e => e.type===type || e.type2===type)
-    setMyProducts(holder);
-    // console.log(type);
+  const Veri = ()=>{
+    return (
+      <div className='flex justify-center items-center'>
+        <svg className="text-white w-6 h-6 mt-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" >
+          <path fillRule="evenodd" d="M19.916 4.626a.75.75 0 0 1 .208 1.04l-9 13.5a.75.75 0 0 1-1.154.114l-6-6a.75.75 0 0 1 1.06-1.06l5.353 5.353 8.493-12.74a.75.75 0 0 1 1.04-.207Z" clipRule="evenodd" />
+        </svg>
+      </div>
+    )
   }
 
   return (
-    <div className='flex  flex-wrap shop:flex-nowrap mainMargin gap-2'>
+    <div className='flex flex-wrap shop:flex-nowrap mainMargin gap-5'>
       <div className='p-4 flex-grow gap-5 rounded-xl h-fit border-4 flex flex-col shop:max-w-[300px] shop:min-w-[300px]'>
-        <div onClick={()=>setFilters(prev=>!prev)} className='cursor-pointer flex justify-between'>
+        <div onClick={()=>setArrows({type:'filter'})} className='select-none cursor-pointer flex justify-between'>
           <p className='font-bold text-2xl'>Filters</p>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
         <path d="M6 12a.75.75 0 0 1-.75-.75v-7.5a.75.75 0 1 1 1.5 0v7.5A.75.75 0 0 1 6 12ZM18 12a.75.75 0 0 1-.75-.75v-7.5a.75.75 0 0 1 1.5 0v7.5A.75.75 0 0 1 18 12ZM6.75 20.25v-1.5a.75.75 0 0 0-1.5 0v1.5a.75.75 0 0 0 1.5 0ZM18.75 18.75v1.5a.75.75 0 0 1-1.5 0v-1.5a.75.75 0 0 1 1.5 0ZM12.75 5.25v-1.5a.75.75 0 0 0-1.5 0v1.5a.75.75 0 0 0 1.5 0ZM12 21a.75.75 0 0 1-.75-.75v-7.5a.75.75 0 0 1 1.5 0v7.5A.75.75 0 0 1 12 21ZM3.75 15a2.25 2.25 0 1 0 4.5 0 2.25 2.25 0 0 0-4.5 0ZM12 11.25a2.25 2.25 0 1 1 0-4.5 2.25 2.25 0 0 1 0 4.5ZM15.75 15a2.25 2.25 0 1 0 4.5 0 2.25 2.25 0 0 0-4.5 0Z" />
       </svg>
         </div>
         {
-          Filters&&<>
+          Arrows.filter&&<>
           <hr />
-          <div className='flex flex-col gap-3 cursor-pointer'>
-            <div className='flex justify-between' onClick={()=>setType(prev=>!prev)}>
-              <p className='font-bold text-xl'>Type</p>
+          <div className='flex flex-col gap-3'>
+            <div className='flex justify-between cursor-pointer' onClick={()=>setArrows({type:'type'})}>
+              <p className='font-bold text-xl select-none'>Type</p>
               <motion.div
-                animate={{rotate:!Type?180:0,y:!Type?-10:0}}
+                animate={{rotate:!Arrows.type?180:0,y:!Arrows.type?-10:0}}
               ><MdKeyboardArrowUp /></motion.div>
             </div>
             {
-              Type&&<>
-              <div onClick={()=>setProd('All')} className='flex justify-between cursor-pointer'>
+              Arrows.type&&<div className='flex flex-col justify-between gap-5'>
+              <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0}} onClick={()=>handleFiltersChange('type','All')} className='flex justify-between cursor-pointer'>
                 <p>All</p>
                 <MdKeyboardArrowRight />
-              </div>
-              <div onClick={()=>setProd('T-shirt')} className='flex justify-between cursor-pointer'>
+              </motion.div>
+              <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.05}} onClick={()=>handleFiltersChange('type','T-shirt')} className='flex justify-between cursor-pointer'>
                 <p>T-shirts</p>
                 <MdKeyboardArrowRight />
-              </div>
-              <div onClick={()=>setProd('Shirts')} className='flex justify-between cursor-pointer'>
+              </motion.div>
+              <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.06}} onClick={()=>handleFiltersChange('type','Shirts')} className='flex justify-between cursor-pointer'>
                 <p>Shirts</p>
                 <MdKeyboardArrowRight />
-              </div>
-              <div onClick={()=>setProd('Jeans')} className='flex justify-between cursor-pointer'>
+              </motion.div>
+              <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.07}} onClick={()=>handleFiltersChange('type','Jeans')} className='flex justify-between cursor-pointer'>
                 <p>Jeans</p>
                 <MdKeyboardArrowRight />
-              </div>
-              <div onClick={()=>setProd('Shorts')} className='flex justify-between cursor-pointer'>
+              </motion.div>
+              <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.08}} onClick={()=>handleFiltersChange('type','Shorts')} className='flex justify-between cursor-pointer'>
                 <p>Shorts</p>
                 <MdKeyboardArrowRight />
-              </div></>
+              </motion.div></div>
             }
           </div>
           <hr />
-          <div className=' flex-col gap-3 cursor-pointer' onClick={()=>setPrice(prev=>!prev)}>
-              <div className='flex justify-between'>
-                <p className='font-bold text-xl'>Price</p>
+          <div className=' flex-col gap-3'>
+              <div className='flex justify-between cursor-pointer' onClick={()=>setArrows({type:'price'})}>
+                <p className='font-bold text-xl select-none'>Price</p>
                 <motion.div
-                  animate={{rotate:!Price?180:0,y:!Price?-10:0}}
+                  animate={{rotate:!Arrows.price?180:0,y:!Arrows.price?-10:0}}
                 ><MdKeyboardArrowUp /></motion.div>
               </div>
                 {
-                  Price&&<>
-                    <div className='mt-10'>
-                    </div>
+                  Arrows.price&&<motion.div
+                  initial={{x:-500,opacity:0}}
+                  animate={{x:0,opacity:1}}
+                  transition={{duration:0.1,type:'spring'}}
+                  className='cursor-pointer select-none my-7'>
                     <ReactSlider
                         className="horizontal-slider"
                         thumbClassName="example-thumb"
                         trackClassName="example-track"
-                        defaultValue={[0, 100]}
+                        defaultValue={[Filters.price[0], Filters.price[1]]}
+                        min={0}
+                        max={500}
                         ariaLabel={['Lower thumb', 'Upper thumb']}
                         ariaValuetext={state => `Thumb value ${state.valueNow}`}
-                        renderThumb={(props, state) => <div {...props}>{state.valueNow}</div>}
+                        renderThumb={(props, state) => <div {...props}>{state.valueNow}</div> }
                         pearling
-                        minDistance={10}
+                        onChange={(value)=>setPriceRange(value)}
+                        minDistance={100}
                     />
-                  </>
+                  </motion.div>
                 }
+                <div onClick={()=>handleFiltersChange('price',PriceRange)} className='flex justify-center items-center'>
+                  <button className='btn flex justify-center items-center'>Aply</button>
+                </div>
           </div>
-          <div className=' flex-col gap-3 cursor-pointer' onClick={()=>setColors(prev=>!prev)}>
-              <div className='flex justify-between'>
-                <p className='font-bold text-xl'>Colors</p>
+          <div className=' flex-col gap-3'>
+              <div className='flex justify-between cursor-pointer' onClick={()=>setArrows({type:'colors'})}>
+                <p className='font-bold text-xl select-none'>Colors</p>
                 <motion.div
-                  animate={{rotate:!Colors?180:0,y:!Colors?-10:0}}
+                  animate={{rotate:!Arrows.colors?180:0,y:!Arrows.colors?-10:0}}
                 ><MdKeyboardArrowUp /></motion.div>
               </div>
                 {
-                  Colors&&<>
-                    <p>Colors content</p>
-                  </>
+                  Arrows.colors&&<motion.div
+                  initial={{x:-500,opacity:0}}
+                  animate={{x:0,opacity:1}}
+                  transition={{duration:0.1,type:'spring'}}
+                  className='flex flex-col justify-between gap-5 mb-5'>
+                    <div className='flex gap-3 flex-wrap mt-10'>
+                    <motion.div 
+                        initial={{opacity:0,x:-75}}
+                        animate={{opacity:1,x:0}}
+                        transition={{delay:0.0}}
+                      onClick={()=>handleFiltersChange('colorbg','1')} className='bg-yellow-900 w-8 h-8 rounded-full cursor-pointer'>{Filters.colorsbg==='1' && <Veri/>}</motion.div>
+                      <motion.div 
+                        initial={{opacity:0,x:-75}}
+                        animate={{opacity:1,x:0}}
+                        transition={{delay:0.1}}
+                      onClick={()=>handleFiltersChange('colorbg','2')} className='bg-red-900 w-8 h-8 rounded-full cursor-pointer'>{Filters.colorsbg==='2' && <Veri/>}</motion.div>
+                      <motion.div 
+                        initial={{opacity:0,x:-75}}
+                        animate={{opacity:1,x:0}}
+                        transition={{delay:0.2}}
+                      onClick={()=>handleFiltersChange('colorbg','3')} className='bg-green-900 w-8 h-8 rounded-full cursor-pointer'>{Filters.colorsbg==='3' && <Veri/>}</motion.div>
+                      <motion.div 
+                        initial={{opacity:0,x:-75}}
+                        animate={{opacity:1,x:0}}
+                        transition={{delay:0.3}}
+                      onClick={()=>handleFiltersChange('colorbg','4')} className='bg-blue-900 w-8 h-8 rounded-full cursor-pointer'>{Filters.colorsbg==='4' && <Veri/>}</motion.div>
+                      <motion.div 
+                        initial={{opacity:0,x:-75}}
+                        animate={{opacity:1,x:0}}
+                        transition={{delay:0.4}}
+                      onClick={()=>handleFiltersChange('colorbg','5')} className='bg-yellow-500 w-8 h-8 rounded-full cursor-pointer'>{Filters.colorsbg==='5' && <Veri/>}</motion.div>
+                      <motion.div 
+                        initial={{opacity:0,x:-75}}
+                        animate={{opacity:1,x:0}}
+                        transition={{delay:0.5}}
+                      onClick={()=>handleFiltersChange('colorbg','6')} className='bg-red-500 w-8 h-8 rounded-full cursor-pointer'>{Filters.colorsbg==='6' && <Veri/>}</motion.div>
+                      <motion.div 
+                        initial={{opacity:0,x:-75}}
+                        animate={{opacity:1,x:0}}
+                        transition={{delay:0.6}}
+                      onClick={()=>handleFiltersChange('colorbg','7')} className='bg-green-500 w-8 h-8 rounded-full cursor-pointer'>{Filters.colorsbg==='7' && <Veri/>}</motion.div>
+                      <motion.div 
+                        initial={{opacity:0,x:-75}}
+                        animate={{opacity:1,x:0}}
+                        transition={{delay:0.7}}
+                      onClick={()=>handleFiltersChange('colorbg','8')} className='bg-blue-500 w-8 h-8 rounded-full cursor-pointer'>{Filters.colorsbg==='8' && <Veri/>}</motion.div>
+                      <motion.div 
+                        initial={{opacity:0,x:-75}}
+                        animate={{opacity:1,x:0}}
+                        transition={{delay:0.8}}
+                      onClick={()=>handleFiltersChange('colorbg','9')} className='bg-black w-8 h-8 rounded-full cursor-pointer'>{Filters.colorsbg==='9' && <Veri/>}</motion.div>
+                    </div>
+                  </motion.div>
                 }
           </div>
-          <div className=' flex-col gap-3 cursor-pointer' onClick={()=>setStyle(prev=>!prev)}>
-              <div className='flex justify-between'>
-                <p className='font-bold text-xl'>Style</p>
+          <div className='flex justify-between flex-col gap-3'>
+              <div className='flex justify-between cursor-pointer' onClick={()=>setArrows({type:'style'})}>
+                <p className='font-bold text-xl select-none'>Dress Style</p>
                 <motion.div
-                  animate={{rotate:!Style?180:0,y:!Style?-10:0}}
+                  animate={{rotate:!Arrows.style?180:0,y:!Arrows.style?-10:0}}
                 ><MdKeyboardArrowUp /></motion.div>
               </div>
-                {
-                  Style&&<div>
-                    <p>Style content</p>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                <div>{
+                  Arrows.style&&<div className='flex flex-col gap-5'>
+                    <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.05}} className='flex justify-between cursor-pointer'>
+                      <div>Casual</div>
+                      <input type="checkbox" checked={CheckBox.cb1} onChange={()=>setCheckBox({type:'cb1'})} />
+                    </motion.div>
+                    <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.06}}  className='flex justify-between cursor-pointer'>
+                      <div>Formal</div>
+                      <input type="checkbox" checked={CheckBox.cb2} onChange={()=>setCheckBox({type:'cb2'})} />
+                    </motion.div>
+                    <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.07}}  className='flex justify-between cursor-pointer'>
+                      <div>Party</div>
+                      <input type="checkbox" checked={CheckBox.cb3} onChange={()=>setCheckBox({type:'cb3'})} />
+                    </motion.div>
+                    <motion.div initial={{x:-100,opacity:0}} animate={{x:0,opacity:1}} transition={{delay:0.08}} className='flex justify-between cursor-pointer'>
+                      <div>Gym</div>
+                      <input type="checkbox" checked={CheckBox.cb4} onChange={()=>setCheckBox({type:'cb4'})} />
+                    </motion.div>
                   </div>
-                }
+                }</div>
           </div>
           </>
         }
       </div>
-      <div className='flex flex-wrap gap-3 h-fit'>
-          {
-            MyProducts?.map((el,index) => {
-              return(
-                <motion.div 
-                  variants={{
-                    visible:{opacity:1, x:0},
-                    hidden:{opacity:0, x:-75}
-                  }}
-                  transition={{delay:index*0.1,type:'just'}}
-                  initial='hidden'
-                  animate='visible'
-                  className="flex flex-col w-[220px] h-full" key={index}>
-                  <div className="bg-gray-100 rounded-xl cursor-pointer">
-                    <motion.img
-                    whileHover={{scale:1.2,rotate:index&1?10:-10}}
-                    onClick={handleClick(el.name)}
-                    className="w-full h-[220px]" draggable="false" src={el.src} alt={el.src} />
-                  </div>
-                  <RateCost name={el.name} stars={el.stars} cost={el.cost} discount={el.discount}/>
-                </motion.div>
-              )
-            })
-          }
+      <div className='flex flex-col justify-center flex-grow flex-wrap gap-3 h-fit'>
+        <h1 className='ml-10 mt-5 text-3xl font-bold'>{Filters.type}</h1>
+          <div className='flex justify-center flex-grow flex-wrap gap-3 h-fit'>
+            {
+              MyProducts.length?MyProducts.map((el,index) => {
+                return(
+                  <motion.div key={index} whileTap={{ scale:0.95 }}>
+                    <motion.div 
+                      variants={{
+                        visible:{opacity:1, x:0},
+                        hidden:{opacity:0, x:-75}
+                      }}
+                      transition={{delay:index*0.1,type:'just'}}
+                      initial='hidden'
+                      animate='visible'
+                      className="flex flex-col w-[250px] h-[350px]">
+                      <div className="bg-gray-100 rounded-xl cursor-pointer select-none">
+                        <motion.img
+                        whileHover={{scale:1.2,rotate:index&1?10:-10}}
+                        onClick={handleClick(el.name)}
+                        className=" w-full h-full " draggable="false" src={el.src} alt={el.src} />
+                      </div>
+                      <RateCost name={el.name} stars={el.stars} cost={el.cost} discount={el.discount}/>
+                    </motion.div>
+                  </motion.div>
+                )
+              }):<h1 className='text-3xl font-bold'>No Products</h1>
+            }
+          </div>
+          
       </div>
     </div>
   )

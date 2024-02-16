@@ -45,3 +45,66 @@
 .btnReavel{
   @apply w-full lg:w-fit;
 }
+
+/* Slider Styles */
+
+.horizontal-slider{
+  width: 100%;
+    height: 10px;
+    border: 1px solid grey;
+    position: relative;
+    border-radius: 50px;
+}
+.example-track{
+  top: 20px;
+  height: 10px;
+}
+.example-track.example-track-0{
+  position: absolute;
+  left: 0px;
+  right: 450px;
+  background-color: white;
+}
+.example-track.example-track-1{
+  position: absolute;
+  top:0;
+  height: 100%;
+  border-radius: 50px;
+  background-color: black;
+}
+.example-track.example-track-2{
+  position: absolute;
+  top:0;
+  height: 100%;
+  background-color: white;
+  display: n;
+}
+.example-thumb{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -10px;
+  height: 30px;
+  aspect-ratio: 1;
+  line-height: 38px;
+}
+
+
+.example-thumb.example-thumb-0{
+  position: absolute;
+  touch-action: none;
+  z-index: 1;
+  left: 0px;
+  background-color: black;
+  color: white;
+  border-radius: 100%;
+}
+.example-thumb.example-thumb-1{
+  position: absolute;
+  touch-action: none;
+  z-index: 2;
+  left: 450px;
+  background-color: black;
+  color: white;
+  border-radius: 100%;
+}
