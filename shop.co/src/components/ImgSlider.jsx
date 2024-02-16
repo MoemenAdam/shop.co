@@ -21,7 +21,12 @@ export default function ImgSlider({type,del='no',id}) {
     }
   },[inView,MainControls])
   useEffect(()=>{
-    setWidth(ref.current.scrollWidth - ref.current.offsetWidth)
+    const timer = setTimeout(() => {
+      setWidth(ref.current.scrollWidth - ref.current.offsetWidth)
+    }, 1);
+    return ()=>{
+      clearTimeout(timer);
+    }
   },[])
 
   const handleClick = (name) => {

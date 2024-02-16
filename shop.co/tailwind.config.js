@@ -8,6 +8,7 @@ export default {
     extend: {
       screens:{
         nav:'1110px',
+        shop:'974px',
         xsm:'400px',
         cart:'440px',
         cart2:'569px',
