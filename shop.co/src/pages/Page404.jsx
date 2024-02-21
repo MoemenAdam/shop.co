@@ -2,6 +2,7 @@ import Undraw404 from "../components/Undraw404"
 import {Link} from "react-router-dom"
 import Reavel from "../Reavel"
 import {motion} from "framer-motion"
+import Img from "../components/Img"
 export default function Page404() {
   return (
     <div className="mainMargin flex-col-reverse lg:flex-row flex items-center">
@@ -15,7 +16,7 @@ export default function Page404() {
         initial={{opacity:0, y:75}}
         animate={{opacity:1, y:0}} transition={{type:'just'}} 
         className="flex-grow relative w-full nav:w-fit">
-          <img src="../Undraw404.png" alt="" />
+          <Img src="../Undraw404.png" alt="" />
       </motion.div>
     </div>
   </div>

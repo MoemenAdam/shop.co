@@ -6,6 +6,7 @@ import {motion} from 'framer-motion'
 import BrandsBar from '../components/BrandsBar'
 import HomeSliders from '../components/HomeSliders'
 import HappyCustomers from '../components/HappyCustomers'
+import Img from '../components/Img'
 export default function Home({to = ''}) {
   const NewArrival = useRef()
   const TopSelling = useRef()
@@ -86,13 +87,13 @@ export default function Home({to = ''}) {
           </div>
         </div>
         <div className="flex justify-end flex-grow relative">
-            <motion.img
+            <Img
             initial={{opacity:0, y:75}}
             animate={{opacity:1, y:0}} transition={{type:'just'}} className="w-32 absolute right-0 hidden xsm:block z-10" src="./Vector.png" alt="" />
-          <motion.img
+            <Img
             initial={{opacity:0, y:75}}
             animate={{opacity:1, y:0}}transition={{type:'just'}} className="w-full h-full" src="./Main.png" alt="main" />
-            <motion.img
+            <Img
             initial={{opacity:0, y:75}}
             animate={{opacity:1, y:0}} transition={{type:'just'}} className="w-12 absolute left-0 top-44 hidden xsm:block z-10" src="./Vector.png" alt="" />
         </div>

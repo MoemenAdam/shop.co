@@ -3,6 +3,7 @@ import { motion, useAnimation, useInView } from "framer-motion";
 import RateCost from "./RateCost";
 import { useNavigate } from "react-router-dom";
 import { Products } from "../store/Constants";
+import Img from "./Img";
 
 export default function ImgSlider({type,del='no',id}) {
   const [Width, setWidth] = useState(0)
@@ -57,7 +58,7 @@ export default function ImgSlider({type,del='no',id}) {
                     animate={MainControls}
                     className="flex flex-col w-[250px] h-full">
                       <div className="bg-gray-100 rounded-xl select-none">
-                        <motion.img
+                        <Img 
                         whileHover={{scale:1.2,rotate:index&1?10:-10}}
                         onClick={handleClick(el.name)}
                         className="w-full h-[250px]" draggable="false" src={el.src} alt={el.src} />

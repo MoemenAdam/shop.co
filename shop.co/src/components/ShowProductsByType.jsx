@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import RateCost from './RateCost'
 import { MdKeyboardArrowUp } from "react-icons/md";
 import ReactSlider from 'react-slider'
+import Img from './Img';
 
 
 
@@ -387,7 +388,7 @@ export default function ShowProductsByType({MyProducts,setMyProducts}) {
                       animate='visible'
                       className="flex flex-col w-[250px] h-[350px]">
                       <div className="bg-gray-100 rounded-xl cursor-pointer select-none">
-                        <motion.img
+                        <Img
                         whileHover={{scale:1.2,rotate:index&1?10:-10}}
                         onClick={handleClick(el.name)}
                         className=" w-full h-full " draggable="false" src={el.src} alt={el.src} />

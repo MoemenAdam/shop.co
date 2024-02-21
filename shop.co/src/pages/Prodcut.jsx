@@ -8,6 +8,7 @@ import AddToCart from '../store/AddToCart'
 import { CartCtx } from '../store/CartContext'
 import HomeSliders from '../components/HomeSliders'
 import { IoIosArrowForward } from "react-icons/io";
+import Img from '../components/Img'
 
 export default function Prodcut() {
   const [MyProdcut, setMyProdcut] = useState({})
@@ -82,7 +83,7 @@ export default function Prodcut() {
       </div>
       <div className='flex flex-wrap justify-center gap-x-10 mainMargin h-fit'>
         <div className='bg-gray-100 flex-grow rounded-xl flex justify-center items-center '>
-          <img className='w-[80%]' src={MyProdcut.src} alt='' />
+          <Img className='w-[80%]' src={MyProdcut.src} alt='' />
         </div>
         <div className='relative w-[100%-40px]'>
           <RateCost from='Prodcut' name={MyProdcut.name} stars={MyProdcut.stars} cost={MyProdcut.cost} discount={MyProdcut.discount} />

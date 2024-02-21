@@ -7,6 +7,7 @@ import { MdOutlineDiscount } from "react-icons/md";
 import { motion, AnimatePresence  } from "framer-motion";
 import AddToCart from "../store/AddToCart"
 import { IoIosArrowForward } from "react-icons/io";
+import Img from "../components/Img"
 
 
 export default function Cart() {
@@ -53,7 +54,7 @@ export default function Cart() {
             initial={{opacity:0, y:75}}
             animate={{opacity:1, y:0}} transition={{type:'just'}} 
             className="flex-grow relative w-full nav:w-fit">
-              <img src="order_confirmed.gif" alt="" />
+              <Img src="order_confirmed.gif" alt="" />
           </motion.div>
         </div>
       </div>
@@ -73,7 +74,7 @@ export default function Cart() {
             initial={{opacity:0, y:75}}
             animate={{opacity:1, y:0}} transition={{type:'just'}} 
             className="flex-grow relative w-full nav:w-fit">
-              <img src="undraw_shopping_app_flsj.png" alt="" />
+              <Img src="undraw_shopping_app_flsj.png" alt="" />
           </motion.div>
         </div>
       </div>

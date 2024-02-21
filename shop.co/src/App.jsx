@@ -1,4 +1,3 @@
-import { useRef } from "react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from "./pages/Home"
 import Error from "./pages/Error"
@@ -28,21 +27,8 @@ const router = createBrowserRouter([
 
 
 function App() {
-  const MyCursor = useRef()
-  const handleMouseMove = (e) => {
-    const x = e.clientX;
-    const y = e.clientY;
-    if(MyCursor){
-      MyCursor.current.animate({
-        left: `${x-4}px`,
-        top: `${y-4}px`
-      },{duration:700 , fill:'forwards', easing:'ease-in-out'})
-    }
-  
-  }
   return (
-    <div onMouseMove={handleMouseMove}>
-      <div ref={MyCursor} className='hidden w-2 xsm:block h-2 bg-black rounded-full z-huge pointer-events-none fixed MyCursor' />
+    <div>
       <RouterProvider router={router}/>
     </div>
   )
