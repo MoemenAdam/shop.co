@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from 'react'
+import { useEffect, useState, useReducer } from 'react'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import RateCost from './RateCost'
@@ -137,7 +137,7 @@ export default function ShowProductsByType({MyProducts,setMyProducts}) {
   useEffect(()=>{
     const holder = filterClothes(MyProducts, Filters.type, Filters.price[0], Filters.price[1], Filters.style);
     setProducts(holder);
-  },[Filters])
+  },[Filters,MyProducts])
 
   useEffect(()=>{
     if(!StyleCheckBox.cb1 && !StyleCheckBox.cb2 && !StyleCheckBox.cb3 && !StyleCheckBox.cb4){
@@ -387,12 +387,23 @@ export default function ShowProductsByType({MyProducts,setMyProducts}) {
                       initial='hidden'
                       animate='visible'
                       className="flex flex-col w-[250px] h-[350px]">
-                      <div className="bg-gray-100 rounded-xl cursor-pointer select-none">
+                      <motion.div className="bg-gray-100 rounded-xl cursor-pointer select-none" onClick={handleClick(el.name)}
+                      
+                      whileHover={{scale:1.2,rotate:index&1?10:-10}}
+                      >
                         <Img
+                        img={
+                          el.src.split('/').pop().split('.')[0]==='Vector'?'BlackStar'
+                          :el.src.split('/').pop().split('.')[0]==='Main'?'ManAndWomen'
+                          :el.src.split('/').pop().split('.')[0]==='order_confirmed'?'Confirm'
+                          :el.src.split('/').pop().split('.')[0]==='undraw_shopping_app_flsj'?'Empty'
+                          :el.src.split('/').pop().split('.')[0]==='Undraw404'?'Error'
+                          :el.src.split('/').pop().split('.')[0]
+                          
+                        }
                         whileHover={{scale:1.2,rotate:index&1?10:-10}}
-                        onClick={handleClick(el.name)}
                         className=" w-full h-full " draggable="false" src={el.src} alt={el.src} />
-                      </div>
+                      </motion.div>
                       <RateCost name={el.name} stars={el.stars} cost={el.cost} discount={el.discount}/>
                     </motion.div>
                   </motion.div>

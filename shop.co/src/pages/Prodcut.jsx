@@ -82,8 +82,9 @@ export default function Prodcut() {
         <p className=''>{MyProdcut.name}</p>
       </div>
       <div className='flex flex-wrap justify-center gap-x-10 mainMargin h-fit'>
-        <div className='bg-gray-100 flex-grow rounded-xl flex justify-center items-center '>
-          <Img className='w-[80%]' src={MyProdcut.src} alt='' />
+        <div className='bg-gray-100 flex-grow rounded-xl flex justify-center '>
+          <Img className='w-[80%]' src={MyProdcut.src} alt='' 
+          img={MyProdcut.src?.split('/').pop().split('.')[0]} />
         </div>
         <div className='relative w-[100%-40px]'>
           <RateCost from='Prodcut' name={MyProdcut.name} stars={MyProdcut.stars} cost={MyProdcut.cost} discount={MyProdcut.discount} />

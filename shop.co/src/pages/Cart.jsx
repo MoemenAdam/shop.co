@@ -41,22 +41,22 @@ export default function Cart() {
 
   if(Checkout){
     // empty the cart
-    AddToCart([],setCart,setCost,0,'empty')
+    // AddToCart([],setCart,setCost,0,'empty')
     return(
       <div className="mainMargin flex-col-reverse lg:flex-row flex items-center">
         <div className="text-center flex flex-col items-center gap-5">
-          <Reavel><h1 className="bolded text-4xl xsm:text-5xl">Thank You for Your Purchase!</h1></Reavel>
-          <Reavel><p>Your order has been placed successfully</p></Reavel>
-          <Reavel className="p-4"><Link className="btn w-fit" to='/'>Go to Home Page</Link></Reavel>
+          <Reavel>
+            <h1 className="bolded text-4xl xsm:text-5xl">Thank You for Your Purchase!</h1>
+          </Reavel>
+          <Reavel><p>Must add items on the card before you proceed to checkout</p></Reavel>
+          <Reavel className="p-4"><Link className="btn w-fit" to='/Shop'>Go to Shop</Link></Reavel>
         </div>
-        <div>
           <motion.div
             initial={{opacity:0, y:75}}
             animate={{opacity:1, y:0}} transition={{type:'just'}} 
             className="flex-grow relative w-full nav:w-fit">
-              <Img src="order_confirmed.gif" alt="" />
+              <Img src="order_confirmed.gif"  alt="" img="Confirm" />
           </motion.div>
-        </div>
       </div>
     )
   }
@@ -69,14 +69,12 @@ export default function Cart() {
           <Reavel><p>Must add items on the card before you proceed to checkout</p></Reavel>
           <Reavel className="p-4"><Link className="btn w-fit" to='/Shop'>Go to Shop</Link></Reavel>
         </div>
-        <div>
           <motion.div
             initial={{opacity:0, y:75}}
             animate={{opacity:1, y:0}} transition={{type:'just'}} 
             className="flex-grow relative w-full nav:w-fit">
-              <Img src="undraw_shopping_app_flsj.png" alt="" />
+              <Img src="undraw_shopping_app_flsj.png" alt="" img="Empty"/>
           </motion.div>
-        </div>
       </div>
     )
   } 
@@ -148,7 +146,10 @@ export default function Cart() {
                 {CorrectDiscount===true && <p className="font-bold mt-5 text-center text-green-600">Promo code applied successfully</p>}
               </div>
               <div className="flex mt-5 mb-5">
-                <Link className="btn flex-grow text-center" onClick={()=>setCheckout(true)}>Go to Checkout</Link>
+                <Link className="btn flex-grow text-center" onClick={()=>{
+                  AddToCart([],setCart,setCost,0,'empty')
+                  setCheckout(true)
+                }}>Go to Checkout</Link>
               </div>
           </div>
         </motion.div>

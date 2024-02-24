@@ -15,7 +15,7 @@ export default function CartLayout({item,setCart,setCost}) {
   return (
     <div className=' gap-y-10 flex-wrap flex justify-between'>
         <div className='flex flex-wrap gap-3'>
-          <div className='bg-gray-100 cart:block flex justify-center items-center cart:flex-shrink-0 flex-grow h-fit'><Img className='cart:w-32 cart:h-32' src={item.src} alt=""/></div>
+          <div className='bg-gray-100 cart:block flex justify-center items-center cart:flex-shrink-0 flex-grow h-fit'><Img className='cart:w-32 cart:h-32' src={item.src} img={item.src?.split('/').pop().split('.')[0]}  alt="" from='cart'/></div>
           <div className='flex flex-col justify-between'>
             <div className='flex flex-col'>
               <h1 className='font-bold text-2xl overflow-hidden w-[190px]' style={{textOverflow:'ellipsis',whiteSpace:'nowrap'}} onClick={()=>setShowName(pre=>!pre)} title={item.name}>{item.name}</h1>

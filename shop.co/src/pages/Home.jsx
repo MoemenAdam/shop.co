@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, memo } from 'react'
 
 import {Link} from 'react-router-dom'
 import Reavel from '../Reavel'
@@ -7,6 +7,7 @@ import BrandsBar from '../components/BrandsBar'
 import HomeSliders from '../components/HomeSliders'
 import HappyCustomers from '../components/HappyCustomers'
 import Img from '../components/Img'
+
 export default function Home({to = ''}) {
   const NewArrival = useRef()
   const TopSelling = useRef()
@@ -42,8 +43,8 @@ export default function Home({to = ''}) {
 
   return (
     <>
-      <div className=" pt-1 flex justify-between items-end flex-wrap mainPadding">
-        <div className="w-1/2 flex flex-col flex-grow">
+      <div className=" pt-1 nav:flex flex-wrap justify-between items-end mainPadding">
+        <div className="nav:w-1/2 flex flex-col flex-grow">
           
             <h1 className="bolded text-3xl sm:text-6xl mb-10 max-w-[550px]">
             <Reavel>FIND CLOTHES</Reavel> <Reavel>THAT MATCHES</Reavel> <Reavel>YOUR STYLE</Reavel>
@@ -89,13 +90,13 @@ export default function Home({to = ''}) {
         <div className="flex justify-end flex-grow relative">
             <Img
             initial={{opacity:0, y:75}}
-            animate={{opacity:1, y:0}} transition={{type:'just'}} className="w-32 absolute right-0 hidden xsm:block z-10" src="./Vector.png" alt="" />
+            animate={{opacity:1, y:0}} transition={{type:'just'}} className="w-32 absolute right-0 hidden xsm:block z-10" src="./Vector.png" alt="" img="BlackStar" />
             <Img
             initial={{opacity:0, y:75}}
-            animate={{opacity:1, y:0}}transition={{type:'just'}} className="w-full h-full" src="./Main.png" alt="main" />
+            animate={{opacity:1, y:0}}transition={{type:'just'}} className="w-full h-full" src="./Main.png" alt="main" img="ManAndWomen" />
             <Img
             initial={{opacity:0, y:75}}
-            animate={{opacity:1, y:0}} transition={{type:'just'}} className="w-12 absolute left-0 top-44 hidden xsm:block z-10" src="./Vector.png" alt="" />
+            animate={{opacity:1, y:0}} transition={{type:'just'}} className="w-12 absolute left-0 top-44 hidden xsm:block z-10" src="./Vector.png" alt="" img="BlackStar" />
         </div>
       </div>
       <BrandsBar />
